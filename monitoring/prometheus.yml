@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'unbound'
+    static_configs:
+      - targets: ['172.16.33.10:9167', '172.16.33.11:9167', '172.16.33.12:9167', '172.16.33.13:9167']
+
+  - job_name: 'haproxy'
+    static_configs:
+      - targets: ['172.16.33.2:9101']
