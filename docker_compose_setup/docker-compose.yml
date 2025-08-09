@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  unbound1:
+    image: mvance/unbound
+    volumes:
+      - ./config/unbound/unbound1.conf:/etc/unbound/unbound.conf
+    ports:
+      - "1053:53/udp"
+      - "1053:53/tcp"
+
+  unbound2:
+    image: mvance/unbound
+    volumes:
+      - ./config/unbound/unbound2.conf:/etc/unbound/unbound.conf
+    ports:
+      - "2053:53/udp"
+      - "2053:53/tcp"
+
+  unbound3:
+    image: mvance/unbound
+    volumes:
+      - ./config/unbound/unbound3.conf:/etc/unbound/unbound.conf
+    ports:
+      - "3053:53/udp"
+      - "3053:53/tcp"
+
+  unbound4:
+    image: mvance/unbound
+    volumes:
+      - ./config/unbound/unbound4.conf:/etc/unbound/unbound.conf
+    ports:
+      - "4053:53/udp"
+      - "4053:53/tcp"
+
+  haproxy:
+    image: haproxy:latest
+    volumes:
+      - ./config/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "53:53"
+      - "8404:8404"
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
